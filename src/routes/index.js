@@ -7,7 +7,6 @@ const publicRoutes = [
   { path: '/', component: Home },
   { path: '/following', component: Following },
   { path: '/upload', component: Upload, layout: HeaderOnly },
-  { path: '/upload', component: Upload, layout: HeaderOnly },
   { path: '/search', component: Search, layout: null },
 ]; // Dùng cho route k cần đăng nhập vẫn xem đc
 
