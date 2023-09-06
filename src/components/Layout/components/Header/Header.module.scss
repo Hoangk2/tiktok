@@ -4,8 +4,82 @@
   display: flex;
   justify-content: center;
   width: 100%;
+  --search-height: 46px;
+  --search-top-spacer: 9px;
+  --search-button-width: 52px;
 }
 .inner {
   height: 100%;
   width: var(--default-layout-width);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+}
+.search {
+  position: relative;
+  width: 361px;
+  height: var(--search-height);
+  background-color: #eae3e3;
+  padding-left: 16px;
+  border-radius: 92px;
+  display: flex;
+  overflow: hidden;
+  border: 1.5px solid transparent; // css sắn border để khi input đc click sẽ k làm thay đổi kích thước search
+
+  input {
+    // Cấu trúc làm tổ trong scss, không nên viết tên thẻ ra ngoài vì sẽ không mô-đun hóa được
+    color: var(--black);
+    font-size: 1.6rem;
+    border: none;
+    line-height: 46px;
+    background-color: transparent;
+    outline: none;
+    flex: 1;
+    caret-color: var(--primary-color);
+  }
+
+  input:not(:placeholder-shown) ~ .search-btn {
+    // Không có placeholder
+    color: rgba(22, 24, 35, 0.75);
+  }
+  button {
+    background: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    height: calc(var(--search-height) - (var(--search-top-spacer) * 2));
+    width: 1px;
+    background: rgba(22, 24, 35, 0.12);
+    top: var(--search-top-spacer);
+    right: var(--search-button-width);
+  }
+  &:focus-within {
+    //click vào input sẽ hiện lên border cho search
+    border-color: rgba(22, 24, 35, 0.2);
+  }
+}
+
+.clear,
+.loading {
+  position: absolute;
+  right: calc(var(--search-button-width) + 16px);
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(22, 24, 35, 0.34);
+}
+.search-btn {
+  width: var(--search-button-width);
+  height: 100%;
+  font-size: 2rem;
+  color: rgba(22, 24, 35, 0.34);
+  &:hover {
+    background-color: rgba(14, 14, 16, 0.03);
+  }
 }
