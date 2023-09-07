@@ -9,6 +9,7 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 import styles from './Header.module.scss';
 import images from '~/assets/images';
 import AccountItem from '~/components/AccountItem';
+import Button from '~/components/Button';
 const cx = classNames.bind(styles);
 function Header() {
   const [searchResult, setSearchResult] = useState([]);
@@ -17,14 +18,14 @@ function Header() {
     setTimeout(() => {
       setSearchResult([]);
     }, 3000);
-  });
+  }, []);
   return (
     <header className={cx('wrapper')}>
       <div className={cx('inner')}>
         <img src={images.logo} alt="Tiktok" />
         <Tippy
-          interactive={true}
-          visible={searchResult.length > 0}
+          interactive={true} // Để tương tác (gía trị boolen)
+          visible={searchResult.length > 0} // Kiểm tra điều kiện để hiện lên (giá trị boolen)
           render={(attrs) => (
             <div className={cx('search-result')} tabIndex="-1" {...attrs}>
               <PopperWrapper>
@@ -49,7 +50,10 @@ function Header() {
             </button>
           </div>
         </Tippy>
-        <div className={cx('actions')}></div>
+        <div className={cx('actions')}>
+          <Button text>Register</Button>
+          <Button primary>Log in</Button>
+        </div>
       </div>
     </header>
   );
