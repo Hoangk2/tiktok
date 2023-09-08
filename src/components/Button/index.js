@@ -6,28 +6,28 @@ const cx = classNames.bind(styles);
 
 function Button({
   to,
-  text,
   href,
-  large,
-  small,
   primary,
-  disabled,
   outline,
+  text,
   rounded,
+  disabled,
+  small,
+  large,
   children,
   className,
-  icon,
+  leftIcon,
+  rightIcon,
   onClick,
   ...passProps
 }) {
   let Comp = 'button';
   const props = {
-    // Thêm sự kiện Click chuột
-    onClick, // Cú pháp rút gọn ES6+
-    ...passProps, // Cú pháp giải
+    onClick,
+    ...passProps,
   };
 
-  // Xử lý xóa các sự kiện chuột khi có prop disabled
+  // Remove event listener when btn is disabled
   if (disabled) {
     Object.keys(props).forEach((key) => {
       if (key.startsWith('on') && typeof props[key] === 'function') {
@@ -36,31 +36,30 @@ function Button({
     });
   }
 
-  // Xử lý để chuyển đổi tên thẻ
   if (to) {
-    // để biến thành thẻ Link
-    props.to = to; // cú pháp js để thêm gía trị cho obj
-    Comp = 'Link';
+    props.to = to;
+    Comp = Link;
   } else if (href) {
-    // để biến thành thẻ a
     props.href = href;
     Comp = 'a';
   }
 
   const classes = cx('wrapper', {
+    [className]: className,
     primary,
     outline,
-    small,
-    large,
     text,
     disabled,
     rounded,
-    [className]: className,
+    small,
+    large,
   });
+
   return (
     <Comp className={classes} {...props}>
-      {icon && <span className={cx('icon')}>{icon}</span>}
-      <span>{children}</span>
+      {leftIcon && <span className={cx('icon')}>{leftIcon}</span>}
+      <span className={cx('title')}>{children}</span>
+      {rightIcon && <span className={cx('icon')}>{rightIcon}</span>}
     </Comp>
   );
 }
