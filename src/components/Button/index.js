@@ -23,8 +23,9 @@ function Button({
 }) {
   let Comp = 'button';
   const props = {
-    onClick,
-    ...passProps,
+    // Thêm sự kiện Click chuột
+    onClick, // Cú pháp rút gọn ES6+
+    ...passProps, // Cú pháp giải
   };
 
   // Remove event listener when btn is disabled
@@ -35,10 +36,10 @@ function Button({
       }
     });
   }
-
+  // Xử lý để chuyển đổi tên thẻ
   if (to) {
     props.to = to;
-    Comp = Link;
+    Comp = Link; // k đc viết là "Link"
   } else if (href) {
     props.href = href;
     Comp = 'a';

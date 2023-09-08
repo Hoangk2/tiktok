@@ -2,22 +2,41 @@
   width: 224px;
 
   .menu-item {
-    margin-left: 0;
+    margin-left: 0; // css lại margin-left cho các hàng thẳng vs nhau
   }
 }
 
 .menu-popper {
-  padding-bottom: 8px;
+  padding-bottom: 8px; // css PopperWrapper riêng cho trường hợp của Menu thông qua truyền prop className cho PopperWrapper
 }
 
 // Menu items
 .menu-item {
   width: 100%;
   justify-content: flex-start;
-  border-radius: 0;
+  border-radius: 0; // do Button có css border nên phải bỏ đi
   padding: 11px 16px;
-
+  line-height: 1.8rem; // fix chiều cao cho chiều cao các menu-item bằng nhau
   &:hover {
     background-color: rgba(22, 24, 35, 0.03);
   }
+}
+
+// Header
+.header {
+  position: relative;
+  height: 50px;
+  margin-top: -8px;
+}
+.back-btn {
+  width: 50px;
+  height: 100%;
+  background: transparent;
+  cursor: pointer;
+}
+.header-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
