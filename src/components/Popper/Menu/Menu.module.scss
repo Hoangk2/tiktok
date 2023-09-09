@@ -1,8 +1,21 @@
 .menu-list {
   width: 224px;
-
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    top: -16px;
+    right: 12%;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+    border-bottom-color: rgba(255, 255, 255);
+  }
   .menu-item {
     margin-left: 0; // css lại margin-left cho các hàng thẳng vs nhau
+    &.separate {
+      border-top: 1px solid #ece9e9;
+    }
   }
 }
 
@@ -20,6 +33,7 @@
   &:hover {
     background-color: rgba(22, 24, 35, 0.03);
   }
+  font-weight: 600;
 }
 
 // Header

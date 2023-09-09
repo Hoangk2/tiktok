@@ -4,7 +4,7 @@
 :root {
   --primary-color: rgb(254, 44, 84);
   --black: #000;
-  --text-color: #333;
+  --text-color: #161823;
   --white: white;
 
   // DefaultLayout
@@ -35,4 +35,28 @@ input,
 [tabindex] {
   outline: none;
   border: none;
+}
+// Custom tooltip
+body {
+  .tippy-box {
+    text-align: left;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 21px;
+    letter-spacing: 0.03px;
+    background-color: rgba(84, 84, 84, 0.92);
+    color: rgb(255, 255, 255);
+  }
+  .tippy-arrow {
+    color: rgba(84, 84, 84, 0.92);
+  }
+  .tippy-box[data-placement^='bottom'] > .tippy-arrow:before {
+    // Nhớ là lớp giả before
+    top: -8px;
+  }
+  .tippy-content {
+    padding: 8px 9px;
+  }
 }

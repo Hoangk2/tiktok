@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
-import Tippy from '@tippyjs/react/headless';
+import Tippy from '@tippyjs/react';
+import HeadlessTippy from '@tippyjs/react/headless';
+import 'tippy.js/dist/tippy.css'; // Sử dụng css cho tippy
 // import 'tippy.js/dist/tippy.css'; // optional
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
+  faCloudArrowUp,
   faKeyboard,
   faCircleQuestion,
   faCircleXmark,
@@ -10,7 +13,12 @@ import {
   faSpinner,
   faMagnifyingGlass,
   faEllipsisVertical,
+  faCoins,
+  faGear,
+  faArrowRightToBracket,
 } from '@fortawesome/free-solid-svg-icons';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+// import { faComment } from '@fortawesome/free-regular-svg-icons';
 import classNames from 'classnames/bind';
 
 import { Wrapper as PopperWrapper } from '~/components/Popper';
@@ -29,10 +37,12 @@ const MENU_ITEMS = [
       title: 'Language',
       data: [
         {
+          type: 'language',
           code: 'en',
           title: 'English',
         },
         {
+          type: 'language', // dùng để phân biệt các trang
           code: 'vi',
           title: 'Tiếng Việt',
         },
@@ -52,6 +62,8 @@ const MENU_ITEMS = [
 function Header() {
   const [searchResult, setSearchResult] = useState([]);
 
+  const currentUser = true; // Biến kiểm tra có đăng nhập hay chưa
+
   useEffect(() => {
     setTimeout(() => {
       setSearchResult([]);
@@ -61,11 +73,36 @@ function Header() {
   const handleMenuChange = (menuItem) => {
     console.log(menuItem);
   };
+
+  const userMenu = [
+    {
+      icon: <FontAwesomeIcon icon={faUser} />,
+      title: 'View profile',
+      to: '/@hoa.hanassii',
+    },
+    {
+      icon: <FontAwesomeIcon icon={faCoins} />,
+      title: 'Get coins',
+      to: '/coin',
+    },
+    {
+      icon: <FontAwesomeIcon icon={faGear} />,
+      title: 'Settings',
+      to: '/setting',
+    },
+    ...MENU_ITEMS,
+    {
+      icon: <FontAwesomeIcon icon={faArrowRightToBracket} />,
+      title: 'Log out',
+      to: '/logout',
+      separate: true, // điều kiện để thêm vạch kẻ
+    },
+  ];
   return (
     <header className={cx('wrapper')}>
       <div className={cx('inner')}>
         <img src={images.logo} alt="Tiktok" />
-        <Tippy
+        <HeadlessTippy
           interactive={true} // Để tương tác (gía trị boolen)
           visible={searchResult.length > 0} // Kiểm tra điều kiện để hiện lên (giá trị boolen)
           render={(attrs) => (
@@ -91,15 +128,38 @@ function Header() {
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
           </div>
-        </Tippy>
-        <div className={cx('actions')}>
-          <Button text>Register</Button>
-          <Button primary>Log in</Button>
+        </HeadlessTippy>
 
-          <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
-            <button className={cx('more-btn')}>
-              <FontAwesomeIcon icon={faEllipsisVertical} />
-            </button>
+        <div className={cx('actions')}>
+          {currentUser ? (
+            <>
+              <Tippy delay={[0, 200]} content="Upload Video" placement="bottom">
+                <button className={cx('actions-btn')}>
+                  <FontAwesomeIcon icon={faCloudArrowUp} />
+                </button>
+              </Tippy>
+              {/* <button className={cx('actions-btn')}>
+                <FontAwesomeIcon icon={faComment} />
+              </button> */}
+            </>
+          ) : (
+            <>
+              <Button text>Register</Button>
+              <Button primary>Log in</Button>
+            </>
+          )}
+          <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
+            {currentUser ? (
+              <img
+                className={cx('user-avatar')}
+                src="https://p16-sign-sg.tiktokcdn.com/aweme/100x100/tos-alisg-avt-0068/751d9281c7f18830a694812b0643f720.jpeg?x-expires=1694397600&x-signature=PtqSyJRlvkx1%2B4v4GTTm%2FllmGq4%3D"
+                alt="Đào Lê Phương Hoa"
+              />
+            ) : (
+              <button className={cx('more-btn')}>
+                <FontAwesomeIcon icon={faEllipsisVertical} />
+              </button>
+            )}
           </Menu>
         </div>
       </div>
@@ -108,3 +168,4 @@ function Header() {
 }
 
 export default Header;
+// onChange chỉ là tên, k phải sự kiện
