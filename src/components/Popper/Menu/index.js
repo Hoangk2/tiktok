@@ -32,7 +32,6 @@ function Menu({ children, items = [], onChange }) {
 
   return (
     <Tippy
-      visible
       interactive
       offset={[20, 10]} // Điều chỉnh lại vị trí của tooltip
       delay={[0, 700]} // Giá trị đầu là thời gian hiện lên sau khi di chuột vào, giá trị sau là thời gian ẩn đi sau khi di chuột ra

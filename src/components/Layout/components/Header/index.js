@@ -134,18 +134,18 @@ function Header() {
         <div className={cx('actions')}>
           {currentUser ? (
             <>
-              <Tippy visible delay={[0, 200]} content="Upload Video" placement="bottom">
+              <Tippy delay={[0, 200]} content="Upload Video" placement="bottom">
                 <button className={cx('actions-btn')}>
                   <FontAwesomeIcon icon={faCloudArrowUp} />
                 </button>
               </Tippy>
               <Tippy delay={[0, 50]} content="Message" placement="bottom">
-                <button className={cx('action-btn')}>
-                  <MessageIcon />
+                <button className={cx('actions-btn')}>
+                  <MessageIcon className={cx('action-massage')} />
                 </button>
               </Tippy>
               <Tippy delay={[0, 50]} content="Inbox" placement="bottom">
-                <button className={cx('action-btn')}>
+                <button className={cx('actions-btn')}>
                   <InboxIcon />
                   <span className={cx('badge')}>12</span>
                 </button>
@@ -161,9 +161,8 @@ function Header() {
             {currentUser ? (
               <Image
                 className={cx('user-avatar')}
-                src="httpss://p16-sign-sg.tiktokcdn.com/aweme/100x100/tos-alisg-avt-0068/751d9281c7f18830a694812b0643f720.jpeg?x-expires=1694397600&x-signature=PtqSyJRlvkx1%2B4v4GTTm%2FllmGq4%3D"
+                src="https://p16-sign-sg.tiktokcdn.com/aweme/100x100/tos-alisg-avt-0068/751d9281c7f18830a694812b0643f720.jpeg?x-expires=1694397600&x-signature=PtqSyJRlvkx1%2B4v4GTTm%2FllmGq4%3D"
                 alt="Đào Lê Phương Hoa"
-                // fallback="https://avatars.githubusercontent.com/u/116326364?v=4"
               />
             ) : (
               <button className={cx('more-btn')}>
