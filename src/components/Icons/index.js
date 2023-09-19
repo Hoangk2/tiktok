@@ -57,7 +57,7 @@ export const SearchIcon = ({ width = '2.4rem', height = '2.4rem', className }) =
     width={width}
     height={height}
     viewBox="0 0 48 48"
-    fill="rgba(22, 24, 35, 0.34)"
+    fill="currentColor" // để khi gõ chữ thì màu icon sẽ ăn theo màu chữ
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
