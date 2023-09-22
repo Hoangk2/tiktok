@@ -5,9 +5,12 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 import MenuItem from './MenuItem';
 import styles from './Menu.module.scss';
 import Header from './Header';
+
 const cx = classNames.bind(styles);
+
 const defaultfn = () => {};
-function Menu({ children, items = [], onChange }) {
+
+function Menu({ children, items = [], hideOnClick = false, onChange }) {
   const [history, setHistory] = useState([{ data: items }]); // để data làm key sẽ giống form children của items
   const current = history[history.length - 1]; // Phần tử cuối mảng
   const renderItems = () => {
@@ -33,6 +36,7 @@ function Menu({ children, items = [], onChange }) {
   return (
     <Tippy
       interactive
+      hideOnClick={hideOnClick}
       offset={[20, 10]} // Điều chỉnh lại vị trí của tooltip
       delay={[0, 700]} // Giá trị đầu là thời gian hiện lên sau khi di chuột vào, giá trị sau là thời gian ẩn đi sau khi di chuột ra
       placement="bottom-end" // Điều chỉnh vị trí của tooltip

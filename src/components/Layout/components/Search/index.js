@@ -32,6 +32,17 @@ function Search() {
     setShowResult(false);
   };
 
+  const handleChange = (e) => {
+    // Nên tách ra hàm riêng để xử lý, ở đây là xử lý k cho gõ dấu cách đầu tiên
+    const searchValue = e.target.value;
+    if (!searchValue.startsWith(' ')) {
+      setSearchValue(searchValue);
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
   useEffect(() => {
     if (!searchValue.trim()) {
       // check điều kiện không gõ kết quả ban đầu mà useEffect vẫn thực hiện lúc mới vào vì trường q là bắt buộc
@@ -70,7 +81,7 @@ function Search() {
           value={searchValue}
           placeholder="Search accounts and videos"
           spellCheck="false"
-          onChange={(e) => setSearchValue(e.target.value)}
+          onChange={handleChange}
           onFocus={() => setShowResult(true)}
         />
         {!!searchValue && !loading && (
@@ -79,7 +90,7 @@ function Search() {
           </button>
         )}
         {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
-        <button className={cx('search-btn')}>
+        <button className={cx('search-btn')} onMouseDown={(e) => e.preventDefault()}>
           <SearchIcon />
         </button>
       </div>
