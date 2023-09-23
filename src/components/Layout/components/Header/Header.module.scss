@@ -7,6 +7,11 @@
   --search-height: 46px;
   --search-top-spacer: 9px;
   --search-button-width: 52px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--white);
+  z-index: 10;
 }
 .inner {
   height: 100%;

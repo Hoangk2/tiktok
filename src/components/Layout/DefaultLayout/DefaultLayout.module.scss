@@ -13,3 +13,6 @@
   flex: 1;
   min-height: 1000px;
 }
+.container {
+  margin-top: var(--default-layout-header-height);
+}

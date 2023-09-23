@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
 import HeadlessTippy from '@tippyjs/react/headless';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
@@ -40,9 +39,6 @@ function Search() {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
   useEffect(() => {
     if (!searchValue.trim()) {
       // check điều kiện không gõ kết quả ban đầu mà useEffect vẫn thực hiện lúc mới vào vì trường q là bắt buộc
@@ -60,41 +56,47 @@ function Search() {
   }, [debounced]);
 
   return (
-    <HeadlessTippy
-      interactive={true} // Để tương tác với tooltip (gía trị boolen)
-      visible={showResult && searchResult.length > 0} // Kiểm tra điều kiện để hiện lên (giá trị boolen)
-      render={(attrs) => (
-        <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-          <PopperWrapper>
-            <h4 className={cx('search-title')}>Accounts</h4>
-            {searchResult.map((result) => (
-              <AccountItem key={result.id} data={result} />
-            ))}
-          </PopperWrapper>
-        </div>
-      )}
-      onClickOutside={handleHideResult}
-    >
-      <div className={cx('search')}>
-        <input
-          ref={inputRef}
-          value={searchValue}
-          placeholder="Search accounts and videos"
-          spellCheck="false"
-          onChange={handleChange}
-          onFocus={() => setShowResult(true)}
-        />
-        {!!searchValue && !loading && (
-          <button className={cx('clear')} onClick={handleClear}>
-            <FontAwesomeIcon icon={faCircleXmark} />
-          </button>
+    <div>
+      {/* Using a wrapper <div> tag around the reference element solves
+  // this by creating a new parentNode context. */}
+      <HeadlessTippy
+        interactive={true} // Để tương tác với tooltip (gía trị boolen)
+        visible={showResult && searchResult.length > 0} // Kiểm tra điều kiện để hiện lên (giá trị boolen)
+        render={(attrs) => (
+          <div className={cx('search-result')} tabIndex="-1" {...attrs}>
+            <PopperWrapper>
+              <h4 className={cx('search-title')}>Accounts</h4>
+              {searchResult.map((result) => (
+                <AccountItem key={result.id} data={result} />
+              ))}
+            </PopperWrapper>
+          </div>
         )}
-        {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
-        <button className={cx('search-btn')} onMouseDown={(e) => e.preventDefault()}>
-          <SearchIcon />
-        </button>
-      </div>
-    </HeadlessTippy>
+        onClickOutside={handleHideResult}
+      >
+        <div className={cx('search')}>
+          <input
+            ref={inputRef}
+            value={searchValue}
+            placeholder="Search accounts and videos"
+            spellCheck="false"
+            onChange={handleChange}
+            onFocus={() => setShowResult(true)}
+          />
+          {!!searchValue && !loading && (
+            <button className={cx('clear')} onClick={handleClear}>
+              <FontAwesomeIcon icon={faCircleXmark} />
+            </button>
+          )}
+          {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
+          <button className={cx('search-btn')} onMouseDown={(e) => e.preventDefault()}>
+            {' '}
+            {/*Sự kiện ngăn chặn click vào nút tìm kiếm làm hiện lên border của search*/}
+            <SearchIcon />
+          </button>
+        </div>
+      </HeadlessTippy>
+    </div>
   );
 }
 

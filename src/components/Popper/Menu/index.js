@@ -8,9 +8,9 @@ import Header from './Header';
 
 const cx = classNames.bind(styles);
 
-const defaultfn = () => {};
+const defaultFn = () => {};
 
-function Menu({ children, items = [], hideOnClick = false, onChange }) {
+function Menu({ children, items = [], hideOnClick = false, onChange = { defaultFn } }) {
   const [history, setHistory] = useState([{ data: items }]); // để data làm key sẽ giống form children của items
   const current = history[history.length - 1]; // Phần tử cuối mảng
   const renderItems = () => {
@@ -46,7 +46,7 @@ function Menu({ children, items = [], hideOnClick = false, onChange }) {
             {history.length > 1 && (
               <Header title="Language" onBack={() => setHistory((prev) => prev.slice(0, prev.length - 1))} />
             )}
-            {renderItems()}
+            <div className={cx('menu-body')}>{renderItems()}</div>
           </PopperWrapper>
         </div>
       )}

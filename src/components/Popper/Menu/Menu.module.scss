@@ -20,9 +20,13 @@
 }
 
 .menu-popper {
+  display: flex;
+  flex-direction: column;
   padding-bottom: 8px; // css PopperWrapper riêng cho trường hợp của Menu thông qua truyền prop className cho PopperWrapper
 }
-
+.menu-body {
+  overflow-y: auto;
+}
 // Menu items
 .menu-item {
   width: 100%;
@@ -41,6 +45,7 @@
   position: relative;
   height: 50px;
   margin-top: -8px;
+  flex-shrink: 0;
 }
 .back-btn {
   width: 50px;
