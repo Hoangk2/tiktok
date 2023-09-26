@@ -34,6 +34,23 @@ function Menu({ children, items = [], hideOnClick = false, onChange = { defaultF
     });
   };
 
+  const handleBack = () => {
+    setHistory((prev) => prev.slice(0, prev.length - 1));
+  };
+
+  // Xử lý reset menu khi ẩn menu
+  const handleResetMenu = () => {
+    setHistory((prev) => prev.slice(0, 1));
+  };
+
+  const renderResult = (attrs) => (
+    <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
+      <PopperWrapper className={cx('menu-popper')}>
+        {history.length > 1 && <Header title={current.title} onBack={handleBack} />}
+        <div className={cx('menu-body')}>{renderItems()}</div>
+      </PopperWrapper>
+    </div>
+  );
   return (
     <Tippy
       interactive
@@ -41,17 +58,8 @@ function Menu({ children, items = [], hideOnClick = false, onChange = { defaultF
       offset={[20, 10]} // Điều chỉnh lại vị trí của tooltip
       delay={[0, 700]} // Giá trị đầu là thời gian hiện lên sau khi di chuột vào, giá trị sau là thời gian ẩn đi sau khi di chuột ra
       placement="bottom-end" // Điều chỉnh vị trí của tooltip
-      render={(attrs) => (
-        <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
-          <PopperWrapper className={cx('menu-popper')}>
-            {history.length > 1 && (
-              <Header title={current.title} onBack={() => setHistory((prev) => prev.slice(0, prev.length - 1))} />
-            )}
-            <div className={cx('menu-body')}>{renderItems()}</div>
-          </PopperWrapper>
-        </div>
-      )}
-      onHide={() => setHistory((prev) => prev.slice(0, 1))}
+      render={renderResult}
+      onHide={handleResetMenu}
     >
       {children}
     </Tippy>
