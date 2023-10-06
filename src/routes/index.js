@@ -7,6 +7,7 @@ import Following from '~/pages/Following';
 import Upload from '~/pages/Upload';
 import Search from '~/pages/Search';
 import { HeaderOnly } from '~/layouts';
+import Live from '~/pages/Live';
 
 // Public routes
 const publicRoutes = [
@@ -15,6 +16,7 @@ const publicRoutes = [
   { path: config.routes.upload, component: Upload, layout: HeaderOnly },
   { path: config.routes.search, component: Search, layout: null },
   { path: config.routes.profile, component: Profile },
+  { path: config.routes.live, component: Live },
 ]; // Dùng cho route k cần đăng nhập vẫn xem đc
 
 const privateRoutes = []; // Dùng cho route phải cần đăng nhập vẫn xem đc
